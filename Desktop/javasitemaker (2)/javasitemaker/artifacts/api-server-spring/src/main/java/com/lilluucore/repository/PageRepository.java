@@ -1,0 +1,13 @@
+package com.lilluucore.repository;
+
+import com.lilluucore.entity.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PageRepository extends JpaRepository<Page, String> {
+    List<Page> findBySiteIdOrderByPositionAsc(String siteId);
+    Optional<Page> findByIdAndSiteId(String id, String siteId);
+    long countBySiteId(String siteId);
+}

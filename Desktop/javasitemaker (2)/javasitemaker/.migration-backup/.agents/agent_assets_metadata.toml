@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "I8kMTI0eZj9PmUJk5Zros"
+uri = "file://saas-builder.tar.gz"
+type = "unspecified"
+title = "saas-builder.tar.gz (с гайдом DEPLOY.md)"

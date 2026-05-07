@@ -1,0 +1,25 @@
+FROM node:20-alpine AS build
+
+WORKDIR /workspace
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json tsconfig.json ./
+COPY lib/ ./lib/
+COPY artifacts/saas-builder-ui/ ./artifacts/saas-builder-ui/
+
+RUN npm install -g pnpm@9 && \
+    pnpm install --no-frozen-lockfile
+
+ARG VITE_API_URL=http://localhost:8080
+ENV VITE_API_URL=$VITE_API_URL
+ENV PORT=3000
+ENV BASE_PATH=/
+
+RUN pnpm --filter @workspace/saas-builder-ui run build
+
+FROM nginx:1.27-alpine
+
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /workspace/artifacts/saas-builder-ui/dist/public /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

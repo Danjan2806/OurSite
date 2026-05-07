@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "9D83dKJdq9WJoR7fCMYRL"
+uri = "file://lilluucore_db_dump.zip"
+type = "unspecified"
+title = "lilluucore — Полный дамп БД (SQL inside ZIP)"

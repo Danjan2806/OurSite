@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "SaaS Builder"
+version = "1.0.0"
+id = "artifacts/saas-builder-ui"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19628
+
+[services.development]
+run = "pnpm --filter @workspace/saas-builder-ui run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/saas-builder-ui", "run", "build" ]
+publicDir = "artifacts/saas-builder-ui/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19628"
+BASE_PATH = "/"
